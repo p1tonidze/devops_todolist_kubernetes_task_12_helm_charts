@@ -2,8 +2,8 @@ mysql:
   namespace: mysql
 
   image:
-    repo: mysql
-    tag: 8.0
+    repository: mysql
+    version: 8.0
 
   dbReplicas: 2
 
@@ -22,11 +22,20 @@ mysql:
   tolerations:
     key: "app"
     value: "mysql"
+    operator: "Equal"
+    effect: "NoSchedule"
 
   affinity:
     podaffinity:
       key: "app"
       value: "mysql"
+      operator: In
+      values:
+      - mysql
+
     nodeaffinity:
       key: "app"
       value: "mysql"
+      operator: In
+      values:
+      - mysql
